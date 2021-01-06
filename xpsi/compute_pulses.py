@@ -19,6 +19,7 @@ import xpsi
 
 from xpsi.global_imports import _c, _G, _dpr, gravradius, _csq, _km, _2pi
 
+
 freq = 300.0
 
 #spacetime = xpsi.Spacetime.fixed_spin(freq)
@@ -27,7 +28,9 @@ freq = 300.0
 
 #Or alternatively :
 
-xpsi.Spacetime  #? # uncomment to query
+#xpsi.Spacetime  #? # uncomment to query
+
+#exit()
 
 bounds = dict(distance = (0.1, 1.0),                     # (Earth) distance
                 mass = (1.0, 3.0),                       # mass
@@ -38,7 +41,9 @@ spacetime = xpsi.Spacetime(bounds=bounds, values=dict(frequency=freq))
 
 
 #print(xpsi.HotRegion) #? # uncomment to query
-print(xpsi.HotRegion.required_names)
+#print(xpsi.HotRegion.required_names)
+
+#exit()
 
 bounds = dict(super_colatitude = (None, None),
               super_radius = (None, None),
@@ -59,6 +64,11 @@ primary = xpsi.HotRegion(bounds=bounds,
                             num_rays=200,
                             do_fast=False,
                             prefix='p')
+
+#print(primary.phases_in_cycles)
+#print(primary.num_cells)
+#print(primary.print_settings)
+#exit()
 
 class derive(xpsi.Derive):
     def __init__(self):
@@ -201,19 +211,40 @@ def plot_pulse():
     veneer((0.05,0.2), (0.05,0.2), ax)
     fig.savefig("figs/pulse_profileX.pdf")
 
-#def save_pulse():
-#.....
-
+def save_pulse(): #To be continued ...
+    """Save the pulse profile in ASCII format. """
+    #print(photosphere.signal[0][0]) #spot1?
+    #print("???")
+    #print(photosphere.signal[1][0]) #spot2?
+    #print(hot.phases_in_cycles[0])
+    #print(hot.phases_in_cycles[1])
+    pulse1 = np.sum(photosphere.signal[0][0], axis=0)
+    pulse2 = np.sum(photosphere.signal[1][0], axis=0)
+    phase1 = hot.phases_in_cycles[0]
+    phase2 = hot.phases_in_cycles[1]
+    pulse_tot = pulse1+pulse2
 
 energies = np.logspace(-1.0, np.log10(3.0), 128, base=10.0)
 
 #Another way to set param values:
 star['cos_inclination'] = math.cos(2.0)
 
-star.update()
+
+print("1111")
+star.update() #Calculating the space-time integrals etc. 
+print("2222")
+
+#NOTE: Atmosphere evaluation is only applied during the following integration:
+#print("Now the actual computation!:")
 photosphere.integrate(energies, threads=1) # the number of OpenMP threads to use
 #_ = plot_pulse()
+#print("Light curve finished,")
+#print(photosphere.signal[0][0])
+
+
 plot_pulse()
+
+save_pulse()
 
 
 
