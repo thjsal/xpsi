@@ -110,6 +110,7 @@ secondary = xpsi.HotRegion(bounds=bounds, # can otherwise use same bounds
 from xpsi import HotRegions
 
 hot = HotRegions((primary, secondary))
+#TBD: Check how to have only 1 spot
 
 
 print(hot.objects[0]) # 'p'
@@ -162,8 +163,14 @@ p = [1.4,
      math.pi - 1.0,
      0.2]
 star(p)
+
+#Another way to set param values:
+star['cos_inclination'] = math.cos(3.14*60.0/(180.0))#math.cos(2.0)
+star['p__super_colatitude'] = 3.14*20.0/(180.0) #0.0 #2.0
+
 print("Parameters of the star:")
 print(star.params)
+
 
 
 #Now some pulse profiles:
@@ -226,13 +233,8 @@ def save_pulse(): #To be continued ...
 
 energies = np.logspace(-1.0, np.log10(3.0), 128, base=10.0)
 
-#Another way to set param values:
-star['cos_inclination'] = math.cos(2.0)
 
-
-print("1111")
 star.update() #Calculating the space-time integrals etc. 
-print("2222")
 
 #NOTE: Atmosphere evaluation is only applied during the following integration:
 #print("Now the actual computation!:")

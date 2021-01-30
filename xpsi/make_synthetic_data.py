@@ -388,7 +388,7 @@ p = [1.4,
 NICER_kwargs = dict(require_source_counts=2.0e6,
                      require_background_counts=2.0e6,
                      name='new_synthetic',
-                     directory='../examples/data/')
+                     directory='../examples/data_my/')
 
 likelihood.synthesise(p, force=True, NICER=NICER_kwargs) # SEED=0
 ###################

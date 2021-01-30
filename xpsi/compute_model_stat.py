@@ -20,7 +20,8 @@ from xpsi.global_imports import _c, _G, _dpr, gravradius, _csq, _km, _2pi
 
 #Then we can use that data:
 
-settings = dict(counts = np.loadtxt('../examples/data/synthetic_realisation.dat', dtype=np.double),
+#settings = dict(counts = np.loadtxt('../examples/data_my/new_synthetic_realisation.dat', dtype=np.double),
+settings = dict(counts = np.loadtxt('../docs/source/data/new_synthetic_realisation.dat', dtype=np.double),
                 channels=np.arange(20,201),
                 phases=np.linspace(0.0, 1.0, 33),
                 first=0, last=180,
@@ -382,9 +383,8 @@ likelihood.clear_cache()
 t = time.time()
 # source code changes since model was applied, so let's be a
 # bit lenient when checking the likelihood function
-#likelihood.check(None, [-26713.6136777], 1.0e-6,
-#                 physical_points=[p])
-
+likelihood.check(None, [-26713.6136777], 1.0e-6,
+                 physical_points=[p])
 print('time = %.3f s' % (time.time() - t))
 
 # > xpsi.set_phase_interpolant('Akima')
